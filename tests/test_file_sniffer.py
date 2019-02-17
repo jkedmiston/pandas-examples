@@ -1,4 +1,4 @@
-from pandas_examples.file_sniffer import detect_multi_line_assignment
+from documentation_generator.file_sniffer import detect_multi_line_assignment
 
 def test_multi_line_assignment():
     text = """
