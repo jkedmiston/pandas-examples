@@ -25,14 +25,14 @@ f.close()
 # execute underlying source to bring in any packages, etc. 
 exec(open(source).read())
 
-kk = 0
+index = 0
 sequence = []
-while kk < len(lines):
-    l = lines[kk]
-    kk0 = kk
-    sequence.append(kk)
-    outval = detect_multi_line_assignment(kk, lines)
-    kk = outval["kk"]
+while index < len(lines):
+    l = lines[index]
+    index0 = index
+    sequence.append(index)
+    outval = detect_multi_line_assignment(index, lines)
+    index = outval["index"]
     if outval['continue']:
         continue
 
