@@ -1,9 +1,11 @@
 """
-
+Fairly random functions for manipulating python files as ascii text collections. 
 """
-
 def detect_multi_line_assignment(index, lines):
     """
+    detects if a line is carriage returned across multiple lines and if so
+    extracts the entire multiline string and how 
+
     get multi line assignment e.g. if this string is 
     split on multiple lines
     xs = np.array([[1, 2, 3],

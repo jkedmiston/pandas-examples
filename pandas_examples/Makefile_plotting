@@ -1,0 +1,16 @@
+#
+all: plotting.html
+
+plotting_tmp.ipynb: ../documentation_generator/py_to_ipynb_converter.py plotting.py ../documentation_generator/templates/template.ipynb jupyter_notebook_cells/plotting_import.py
+	python ../documentation_generator/py_to_ipynb_converter.py plotting.py --template ../documentation_generator/templates/template.ipynb --output plotting_tmp.ipynb
+        
+plotting_repo.ipynb: ../documentation_generator/process_ipynb.py plotting_tmp.ipynb ../documentation_generator/execute_ipynb.py
+	python ../documentation_generator/process_ipynb.py plotting_tmp.ipynb --output plotting_repo.ipynb
+	python ../documentation_generator/execute_ipynb.py plotting_repo.ipynb
+
+plotting.html: ../documentation_generator/execute_ipynb.py plotting_repo.ipynb
+	python ../documentation_generator/execute_ipynb.py plotting_repo.ipynb --html
+update_repo: plotting_repo.ipynb
+	cp plotting_repo.ipynb plotting.ipynb
+clean:
+	rm plotting_tmp.ipynb plotting_repo.ipynb plotting.html
