@@ -1,9 +1,11 @@
 from documentation_generator.file_sniffer import detect_multi_line_assignment
+from documentation_generator.file_sniffer import detect_multi_line_function
 from documentation_generator.process_ipynb import replace_exec_line_if_detected
 
 def test_replace_exec_line_if_detected():
     """
-    Tests the execfile 
+    Tests the execfile replacement capability in creating jupyter notebook
+    from primitives. 
     """
     test_line = "exec(open('tests/test_file_sniffer.py').read())"
     l = replace_exec_line_if_detected(test_line)
@@ -54,6 +56,30 @@ lines5
     assert out["index"] == 1 + 4
     assert lines[out["index"]] == nextline + "\n"
 
+def test_detect_multi_line_function():
+    text = """
+%(core)s
+%(nextline)s
+lines5
+    """
+    core = """def a1(x):
+    print(x)
+    return"""
+    nextline = "nextl"
+    text = text % dict(core=core, nextline=nextline)
+    lines = text.split('\n')
+    lines = list(map(lambda x: x+"\n", lines))
+    out = detect_multi_line_function(0, lines)
+    assert out['index'] == 1
+    assert out['continue'] == 1
+
+    out = detect_multi_line_function(1, lines)
+    assert out["output"] == core + "\n"
+    assert out["index"] == 1 + 3
+    assert lines[out["index"]] == nextline + "\n"
+
 if __name__ == "__main__":
     test_detect_multi_line_assignment()
+    test_detect_multi_line_function()
     test_replace_exec_line_if_detected()
+    
