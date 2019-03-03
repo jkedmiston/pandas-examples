@@ -51,7 +51,7 @@ id
 
 >>> idx = pd.IndexSlice
 >>> idx
-<pandas.core.indexing._IndexSlice object at 0x7f957d9b40f0>
+<pandas.core.indexing._IndexSlice object at 0x7fc9b902cdd8>
 
 >>> dftmp = df_grp.loc[idx[:], idx[:, "max"]]
 >>> dftmp
@@ -139,3 +139,4 @@ dfi_T = df.groupby("id", as_index=True).apply(manual_agg_func).reset_index()
 
 
                             
+# 
