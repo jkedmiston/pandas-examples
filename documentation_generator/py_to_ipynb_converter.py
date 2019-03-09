@@ -61,8 +61,8 @@ def add_markdown_block(full_text, kk, lines):
             kk += 1
             continue
 
-        l1 =l[1:]
-        markdown_text = prep_line_for_jupyter(l1)
+        l1 = l[1:]
+        markdown_text += prep_line_for_jupyter(l1)
         kk += 1
 
     contrib = markdown_fmt % dict(markdown_text = markdown_text.strip()[:-1])
@@ -108,6 +108,7 @@ def py_to_ipynb_converter(source, template, output):
         if line_text == "#markdown":
             full_text, kk = add_markdown_block(full_text, kk, lines)
             continue
+        
         if line_text == "#code":
             full_text, kk = add_code_block(full_text, kk, lines)
             continue
@@ -130,7 +131,6 @@ def py_to_ipynb_converter(source, template, output):
     template_text = get_file_as_text(template)
     write_text_as_file(template_text % dict(cells=full_text), output)
     print("%s wrote:%s" % (__file__, output))
-
 
 if __name__ == "__main__":
     import argparse

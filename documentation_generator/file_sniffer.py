@@ -1,6 +1,8 @@
 """
 Fairly random functions for manipulating python files as ascii text collections. 
 """
+from documentation_generator.process_ipynb import prep_line_for_jupyter
+
 def detect_multi_line_assignment(index, lines):
     """
     detects if a line is carriage returned across multiple lines and if so
@@ -93,6 +95,28 @@ def detect_multi_line_function(index, lines):
         index += 1
         pass
     
+    if index == initial_index:
+        startline = lines[initial_index]
+        index = index + 1
+        
+    return {'index':index, 'continue':0, 'output':startline}
+
+def detect_multi_line_markdown_block(index, lines):
+    """
+    """
+    l = lines[index]
+    if l.count('#markdown') == 0:
+        return {'index':index + 1, 'continue':1, 'output':None}
+    else:
+        pass
+    initial_index = index
+    startline = ""
+    l = lines[initial_index]
+    while index < len(lines) and l.count("#endmarkdown") == 0:
+        l = lines[index]
+        startline += l
+        index += 1
+
     if index == initial_index:
         startline = lines[initial_index]
         index = index + 1

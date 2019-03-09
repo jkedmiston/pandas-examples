@@ -61,6 +61,8 @@ out.head()
 #endcode
 #markdown
 #more results
+#hello
+#* hello
 #endmarkdown
 #code
 out = pd.pivot_table(df.reset_index(), index="index", values="dist", columns="id").plot(subplots=True, kind='hist', histtype='step', stacked=True)
