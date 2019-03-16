@@ -111,7 +111,7 @@ group2  2.7  2.7    2.7
 
 >>> df_agg_equivalent = df.groupby("marker").apply(ret_agg_value_to_all_columns_from_args, 2.7)
 >>> df_agg_equivalent
-         id  age  value
+        age   id  value
 marker                 
 group1  2.7  2.7    2.7
 group2  2.7  2.7    2.7
